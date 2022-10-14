@@ -1,38 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import TodoList from './TodoList';
-import AddTodoForm from './AddTodoForm';
+import React, { useEffect, useState } from "react";
+import TodoList from "./TodoList";
+import AddTodoForm from "./AddTodoForm";
 
-function useSemiPersistentState(){
-    const savedList = JSON.parse(localStorage.getItem('savedTodoList'))
-    const [todoList, setTodoList] = useState([...savedList])
-
-    useEffect(() => {
-        const stringList = JSON.stringify(todoList)
-        localStorage.setItem('savedTodoList', stringList)
-    }, [todoList])
-
-    return [todoList, setTodoList]
-}
+const savedList = JSON.parse(localStorage.getItem("savedTodoList"));
 
 function App() {
-    const [todoList, setTodoList] = useSemiPersistentState();
+  const [todoList, setTodoList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    function addTodo(newTodo){
-        setTodoList([...todoList, newTodo]);
+  useEffect(() => {
+    new Promise((resolve, reject) =>
+      setTimeout(() => resolve({ data: { todoList: savedList } }), 2000)
+    ).then(result => {
+      setTodoList([...result.data.todoList]);
+      setIsLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    const stringList = JSON.stringify(todoList);
+    if (!isLoading) {
+      localStorage.setItem("savedTodoList", stringList);
     }
+  }, [todoList, isLoading]);
 
-    function removeTodo(id){
-        const updatedTodos = todoList.filter(t => t.id !== id);
-        setTodoList(updatedTodos);
-    }
+  function addTodo(newTodo) {
+    setTodoList([...todoList, newTodo]);
+  }
 
-    return (
-        <>
-            <h1>Todo List</h1>
-            <TodoList todoList={todoList} onRemoveTodo={removeTodo}/>
-            <AddTodoForm onAddTodo={addTodo}/>
-        </>
-    );
+  function removeTodo(id) {
+    const updatedTodos = todoList.filter(t => t.id !== id);
+    setTodoList(updatedTodos);
+  }
+
+  return (
+    <>
+      <h1>Todo List</h1>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+      )}
+      <AddTodoForm onAddTodo={addTodo} />
+    </>
+  );
 }
 
 export default App;
