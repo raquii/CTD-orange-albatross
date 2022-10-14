@@ -446,3 +446,44 @@ Read documentation: <https://reactrouter.com/web/guides/quick-start>
   - [x] Verify that your Todo List still appears correctly
   - [x] Navigate to <http://localhost:3000/new>
   - [x] Verify that your New Todo List heading appears
+
+### Lesson 2.1
+
+Separate Repo
+
+### Lesson 3.1
+
+So far you've built a functional todo list, but now it's time to add some style!
+
+There are multiple ways to work with CSS in React applications:
+
+- Inline CSS
+- CSS
+- CSS-in-JS
+
+In this lesson, we would like for you to use CSS modules. Let's walk through an example:
+
+- [x] Open `src/`
+- [x] Create a CSS module file called `TodoListItem.module.css`
+- [x] Add a ruleset for class `ListItem` that changes the text color
+- [x] Open `src/TodoListItem.js`
+- [x] Import the default module (as `style`) from `TodoListItem.module.css`
+- [x] Add a `className` to the `<li>` element and set the value as the class from CSS module (`{style.ListItem}`)
+  - note: the `style` object represents all the class names in your CSS module file, so you access them like normal object properties (dot or bracket notation)
+
+## Rubric
+
+For this assignment, there are some general requirements but the design is up to you. This is your chance to be creative and personalize your todo list application.
+
+- [x] Change the background color of the page body
+- [x] Change the default text color
+- [x] Customize the font family
+  - [x] (Optional) Load in a font family from Google Fonts
+- [x] Customize style of navigation items
+- [x] Add spacing (padding/margin) between elements
+- [x] Change the font size, weight, and color of all headings
+- [x] Customize input and button styles
+- [x] Use Media Queries to make sure the application is responsive for all device sizes (mobile, tablet, desktop, etc.)
+- [x] (Optional) Add multi-media usage (i.e. iconography)
+
+This is the basic rubric, but we encourage you to think beyond this list and come up with your own ideas to make your application unique!
